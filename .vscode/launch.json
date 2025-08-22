@@ -10,6 +10,17 @@
       "url": "http://localhost:4200/"
     },
     {
+        "type": "chrome",
+        "request": "launch",
+        "name": "Launch localhost Chrome",
+        "url": "http://localhost:4200",
+        "webRoot": "${workspaceFolder}",
+        "runtimeArgs": [
+            "--disable-extensions",
+            "--user-data-dir=${workspaceFolder}/.vscode/chrome-debug"
+        ]
+    },
+    {
       "name": "ng test",
       "type": "chrome",
       "request": "launch",

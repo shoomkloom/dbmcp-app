@@ -1,0 +1,89 @@
+<div class="main-container flex-column px-2 justify-content-center align-items-center">
+
+    <!-- Message container for 'Copied!' feedback -->
+    <div id="message-container" class="message-container"></div>
+
+    <!-- Top section with logo and GitHub link -->
+    <header class="d-flex justify-content-between align-items-center py-4 px-4">
+        <!-- Logo -->
+        <div class="logo-container mx-auto position-relative">
+            <img src="assets/logo.png" alt="Company Logo" class="img-fluid logo-img">
+        </div>
+        <!-- GitHub Link -->
+        <a href="https://github.com" target="_blank" class="github-link">
+        <i class="fab fa-github me-2"></i>
+        <span>GitHub</span>
+        </a>
+    </header>
+
+    <!-- Main content sections -->
+    <main class="py-1">
+        <!-- Main Title -->
+        <h1 class="main-title mb-5 text-center">DB Analysis MCP Server</h1>
+
+        <!-- Panel 1: MongoDB connection string -->
+        <div class="card panel-card">
+            <div class="card-body">
+                <h5 class="panel-title">MongoDB connection string:</h5>
+                <input type="text" id="mongodb-input" class="form-control" placeholder="e.g: mongodb+srv://username@cluster0.xxxxx.mongo">
+            </div>
+        </div>
+
+        <!-- Panel 2: MCP Server URL -->
+        <div class="card panel-card">
+            <div class="card-body">
+                <h5 class="panel-title">MCP Server URL</h5>
+                <div class="input-group">
+                    <input type="text" id="mcp-input" class="form-control" placeholder="https://example.com/api">
+                    <button class="btn btn-copy" type="button" (click)="copyToClipboard('mcp-input')">
+                        <i class="far fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel 3: Connect your AI assistant -->
+        <div class="card panel-card">
+            <div class="card-body">
+                <h5 class="panel-title">Connect your AI assistant</h5>
+                <div class="button-grid">
+                    <button class="btn assistant-btn"><i class="fas fa-mouse-pointer"></i> Cursor</button>
+                    <button class="btn assistant-btn"><i class="fas fa-cloud-sun"></i> Claude Desktop</button>
+                    <button class="btn assistant-btn"><i class="fas fa-wind"></i> Windsuf</button>
+                    <button class="btn assistant-btn"><i class="fas fa-code"></i> VSCode</button>
+                    <button class="btn assistant-btn"><i class="fas fa-terminal"></i> Cline</button>
+                    <button class="btn assistant-btn"><i class="fas fa-highlighter"></i> Highlight AI</button>
+                    <button class="btn assistant-btn"><i class="fas fa-cubes"></i> Augment Code</button>
+                    <button class="btn assistant-btn"><i class="fas fa-brain"></i> Msty AI</button>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-2 mt-5">
+                    <p class="code-title mb-0">To add this MCP to VSCode, update your <a href="#">.vscode/mcp.json</a> :</p>
+                    <div class="code-actions">
+                        <button class="btn btn-sm btn-action" (click)="copyCode()"><i class="far fa-copy"></i></button>
+                        <button class="btn btn-sm btn-action"><i class="fas fa-expand-alt"></i></button>
+                    </div>
+                </div>
+                <div class="code-block" id="code-block-content">
+                    <pre>
+                        <code>{{ mcpJsonContent }}
+                        </code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+  <!-- Footer with links -->
+  <footer class="footer-panel w-100">
+    <div class="d-flex flex-wrap justify-content-center align-items-center h-100 px-5 gap-3">
+      <a href="https://claude.ai" target="_blank" class="footer-link"><i class="fas fa-cloud me-1"></i> Claude</a>
+      <a href="https://cursor.sh" target="_blank" class="footer-link"><i class="fas fa-mouse-pointer me-1"></i> Cursor</a>
+      <a href="https://windsurf.io" target="_blank" class="footer-link"><i class="fas fa-wind me-1"></i> Windsurf</a>
+      <a href="https://code.visualstudio.com" target="_blank" class="footer-link"><i class="fas fa-code me-1"></i> VSCode</a>
+      <a href="https://www.jetbrains.com/clion" target="_blank" class="footer-link"><i class="fas fa-terminal me-1"></i> Cline</a>
+      <a href="https://highlight.io" target="_blank" class="footer-link"><i class="fas fa-highlighter me-1"></i> Highlight AI</a>
+      <a href="https://augment.codes" target="_blank" class="footer-link"><i class="fas fa-cubes me-1"></i> Augment Code</a>
+      <a href="https://msty.ai" target="_blank" class="footer-link"><i class="fas fa-brain me-1"></i> Msty AI</a>
+    </div>
+  </footer>
+</div>
