@@ -10,25 +10,26 @@ $font-family: 'Inter', sans-serif;
 
 // Overall page styling
 body {
-  font-family: $font-family;
+    font-family: $font-family;
 }
 
 .main-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
+    background-color: $light-gray-bg;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
 
-  main {
-    width: 100%;
-    max-width: 800px; // <-- adjust how wide you want your panels
-    margin: 0 auto;
-  }
+    main {
+        width: 100%;
+        max-width: 800px; // <-- adjust how wide you want your panels
+        margin: 0 auto;
+    }
 }
 
 // Global styles for main titles and panels
 .main-title {
-  color: $dark-gray-text;
+  color: $blue-dark;
   font-weight: 500;
   font-size: 2.5rem;
 }
@@ -41,10 +42,10 @@ body {
 }
 
 .panel-title {
-  color: $dark-gray-text;
+  color: $blue-dark;
   font-weight: 500;
   margin-bottom: 1rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 // Header styling
@@ -96,26 +97,34 @@ header {
 
 // Button grid for AI assistants
 .button-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem; // spacing between buttons
   
   .assistant-btn {
-    background-color: $light-gray-bg;
-    border: 1px solid $border-color;
-    border-radius: 0.5rem;
-    color: $dark-gray-text;
-    font-weight: 500;
-    padding: 0.75rem 0.5rem;
-    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    flex: 0 0 auto;      // don’t stretch to equal width
+    height: 2rem;        // set uniform height
     display: flex;
-    align-items: center;
+    align-items: center; // center icon + text vertically
     justify-content: center;
-    gap: 0.5rem;
+    padding: 0 0.5rem;     // horizontal padding
+    white-space: nowrap; // prevent text wrapping
+    font-size: 0.9rem;
     
     &:hover {
       background-color: $border-color;
       border-color: $blue-primary;
+      color: $blue-dark;
+    }
+
+    &.active {
+        background-color: $border-color; // darker pressed color
+        color: $blue-dark;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,0.2);
+    }
+
+    img {
+        height: 1rem;
     }
   }
 }
@@ -170,7 +179,7 @@ header {
   margin-top: auto;
   
   .footer-link {
-    color: #6e6e6e;
+    color: $blue-dark;
     text-decoration: none;
     font-size: 0.9rem;
     transition: color 0.2s ease-in-out;
@@ -178,6 +187,10 @@ header {
     &:hover {
       color: $blue-primary;
     }
+  }
+
+  img {
+    height: 1rem;
   }
 }
 

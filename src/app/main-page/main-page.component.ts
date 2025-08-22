@@ -13,11 +13,20 @@ export class MainPageComponent implements OnInit {
   // ViewChild decorator to get a reference to the code element
   @ViewChild('codeBlock') codeBlock!: ElementRef;
 
-  mcpJsonContent: any;
+  mcpJsonContent = '';
+  activeAssistant: string | null = null;
 
   constructor(private renderer: Renderer2) { }
 
   ngOnInit(): void {
+  }
+
+  setActive(assistant: string) {
+    this.activeAssistant = assistant;
+  }
+
+  isActive(assistant: string): boolean {
+    return this.activeAssistant === assistant;
   }
 
   // Method to copy the text from an input field or a div
@@ -26,7 +35,8 @@ export class MainPageComponent implements OnInit {
     const element = document.getElementById(elementId) as HTMLInputElement | HTMLDivElement;
     if (element instanceof HTMLInputElement) {
       copyText = element.value;
-    } else if (element instanceof HTMLDivElement) {
+    } 
+    else if (element instanceof HTMLDivElement) {
       copyText = element.innerText;
     }
 
