@@ -19,13 +19,17 @@
     <!-- Main content sections -->
     <main class="py-1">
         <!-- Main Title -->
-        <h1 class="main-title mb-5 text-center">DB Analysis MCP Server</h1>
+        <h1 class="main-title text-center">Instant DB MCP Server</h1>
+        <h5 class="main-title mb-5 text-center">Currently supports MongoDB on Atlas</h5>
 
         <!-- Panel 1: MongoDB connection string -->
         <div class="card panel-card">
             <div class="card-body">
-                <h5 class="panel-title">Paste your MongoDB connection string here:</h5>
-                <input type="text" id="mongodb-input" class="form-control" placeholder="e.g: mongodb+srv://username@cluster0.xxxxx.mongo">
+                <h5 class="panel-title">Paste your MongoDB connection string here (no password):</h5>
+                <input type="text" id="mongodb-input" 
+                    class="form-control" 
+                    placeholder="e.g: mongodb+srv://username@cluster0.xxxxx.mongo"
+                    [(ngModel)]="connectionString" (ngModelChange)="connectionStringChanged($event)" name="connectionString">
             </div>
         </div>
 
@@ -34,13 +38,40 @@
             <div class="card-body">
                 <h5 class="panel-title">Copy the MCP Server URL from here:</h5>
                 <div class="input-group">
-                    <input type="text" id="mcp-input" class="form-control">
+                    <div 
+                        id="mcp-div"
+                        class="form-control"
+                        style="
+                            background-color: #fff;
+                            display: block;
+                            white-space: pre-wrap;
+                            word-break: break-word;
+                            overflow-wrap: anywhere;
+                        ">
+                        {{ mcpUrl }}
+                    </div>
+                    <button class="btn btn-copy" type="button" (click)="copyToClipboard('mcp-div')">
+                        <i class="far fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--
+        <div class="card panel-card">
+            <div class="card-body">
+                <h5 class="panel-title">Copy the MCP Server URL from here:</h5>
+                <div class="input-group">
+                    <input type="text" 
+                        id="mcp-input" 
+                        class="form-control"
+                        [(ngModel)]="mcpUrl" name="mcpUrl" #mcpUrl="ngModel">
                     <button class="btn btn-copy" type="button" (click)="copyToClipboard('mcp-input')">
                         <i class="far fa-copy"></i>
                     </button>
                 </div>
             </div>
         </div>
+        -->
 
         <!-- Panel 3: Connect your AI assistant -->
         <div class="card panel-card">

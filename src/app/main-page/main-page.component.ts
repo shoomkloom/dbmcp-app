@@ -1,20 +1,23 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss'],
-  standalone: true, // This component is now standalone
-  imports: [CommonModule] // Imports CommonModule for Angular directives
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
 export class MainPageComponent implements OnInit {
 
-  // ViewChild decorator to get a reference to the code element
-  @ViewChild('codeBlock') codeBlock!: ElementRef;
-
+  connectionString = '';
+  mcpUrl = '';
+  dbuser = '';
   mcpJsonContent = '';
-  activeAssistant: string | null = null;
+  showHighlightInstructions = false;
+  activeAssistant = 'cursor';
 
   constructor(private renderer: Renderer2) { }
 
@@ -23,10 +26,179 @@ export class MainPageComponent implements OnInit {
 
   setActive(assistant: string) {
     this.activeAssistant = assistant;
+    this.setMcpJsonContent();
   }
 
   isActive(assistant: string): boolean {
     return this.activeAssistant === assistant;
+  }
+
+  connectionStringChanged(connectionString: string) {
+    this.connectionString = connectionString;
+    this.updateMcpUrlAndJson();
+  }
+
+  updateMcpUrlAndJson() {
+    // Update the MCP URL based on the connection string
+    try{
+      const result = this.sanitizeAndEncodeConnectionString();
+      if(result.sanitized){
+        this.mcpUrl = `${environment.dbmcpBaseUrl}?srvString=${result.sanitized}&mongodbpassword=<YOUR PASSWORD>`;
+        this.dbuser = result.dbuser || '';
+        // Update the MCP JSON content
+        this.setMcpJsonContent();
+      }
+      else{
+        this.mcpUrl = '';
+        this.mcpJsonContent = '';
+      }
+    }
+    catch(error){
+      console.error('Error updating MCP URL and JSON:', error);
+      this.mcpUrl = '';
+      this.mcpJsonContent = '';
+      const errorMessage = `Error updating MCP URL and JSON: ${(error instanceof Error ? error.message : String(error))}`;
+      this.showMessage(errorMessage);
+    }
+  }
+
+  setMcpJsonContent() {
+    const dbmcServerName = this.dbuser ? `dbmcp-${this.dbuser}` : 'dbmcp';
+    switch(this.activeAssistant){
+      case 'cursor':
+        this.showHighlightInstructions = false;
+        this.mcpJsonContent = 
+`
+{
+  "mcpServers": {
+    "${dbmcServerName}": {
+      "url": "${this.mcpUrl}",
+    }
+  }
+}`;
+        break;
+      case 'claude':
+        this.showHighlightInstructions = false;
+        this.mcpJsonContent = 
+`
+{
+  "mcpServers": {
+    "${dbmcServerName}": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "${this.mcpUrl}"
+      ]
+    }
+  }
+}`;  
+        break;
+      case 'windsurf':
+        this.showHighlightInstructions = false;
+        this.mcpJsonContent =
+`
+{
+  "mcpServers": {
+    "${dbmcServerName}": {
+      "serverUrl": "${this.mcpUrl}"
+    }
+  }
+}`;
+        break;
+      case 'vscode':
+        this.showHighlightInstructions = false;
+        this.mcpJsonContent = 
+`
+{
+  "servers": {
+    "${dbmcServerName}": {
+      "type": "http",
+      "url": "${this.mcpUrl}"
+    }
+  }
+}`;
+        break;
+      case 'cline':
+        this.showHighlightInstructions = false;
+        this.mcpJsonContent = 
+`
+{
+  "mcpServers": {
+    "${dbmcServerName}": {
+      "url": "${this.mcpUrl}",
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}`; 
+        break;
+      case 'highlight':
+        this.showHighlightInstructions = true;
+        this.mcpJsonContent = ``; 
+        break;
+      case 'augment':
+        this.showHighlightInstructions = false;
+        this.mcpJsonContent = 
+`
+{
+  "mcpServers": {
+    "${dbmcServerName}": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "${this.mcpUrl}"
+      ]
+    }
+  }
+}`;
+        break;
+      case 'mysty':
+        this.showHighlightInstructions = false;
+        this.mcpJsonContent = 
+`
+{
+  "mcpServers": {
+    "${dbmcServerName}": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "${this.mcpUrl}"
+      ]
+    }
+  }
+}`;
+        break;
+      default:
+        this.showHighlightInstructions = false;
+        this.mcpJsonContent = '';
+    }
+
+    
+  }
+
+  sanitizeAndEncodeConnectionString(): { sanitized: string; dbuser: string | null } {
+    // Regex to match mongodb connection string with optional password
+    const regex = /^(mongodb(?:\+srv)?:\/\/)([^:]+)(?::([^@]*))?@(.*)$/;
+
+    const match = this.connectionString.match(regex);
+    if (!match) {
+        // Not a valid MongoDB URI
+        return {
+          sanitized: '',
+          dbuser: ''
+        };
+    }
+
+    const [, protocol, username, , rest] = match;
+
+    // Rebuild connection string without the password
+    const sanitized = `${protocol}${username}@${rest}`;
+
+    // URL encode full string
+    return {
+      sanitized: encodeURIComponent(sanitized),
+      dbuser: username
+    };
   }
 
   // Method to copy the text from an input field or a div
@@ -89,8 +261,6 @@ export class MainPageComponent implements OnInit {
 
   // Method to copy the code block text
   copyCode(): void {
-    if (this.codeBlock) {
-      this.copyToClipboard('code-block-content');
-    }
+    this.copyToClipboard('code-block-content');
   }
 }
