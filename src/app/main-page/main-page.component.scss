@@ -1,5 +1,6 @@
 // Define custom variables for colors and fonts to match the design
 $light-gray-bg: #f9f9fa;
+$mid-gray-bg: #e9e9ea;
 $dark-gray-text: #2c2c2c;
 $panel-bg: #ffffff;
 $border-color: #ededed;
@@ -74,7 +75,6 @@ header {
     }
   }
 }
-
 
 // Input field styling
 .form-control, .input-group-text, .btn-copy {
@@ -153,12 +153,23 @@ header {
   font-size: 0.875rem;
   color: #6e6e6e;
   
-  a {
+  span {
     color: $blue-primary;
+    background-color: $mid-gray-bg;
+    padding: 0rem 0.3rem;
+    border-radius: 0.3rem;
     text-decoration: none;
     &:hover {
       text-decoration: underline;
     }
+  }
+
+  li {
+    margin-top: 0.3rem;
+  }
+
+  div {
+    margin-top: 0.3rem;
   }
 }
 

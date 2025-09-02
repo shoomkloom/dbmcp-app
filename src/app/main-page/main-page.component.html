@@ -21,16 +21,16 @@
         <!-- Main Title -->
         <h1 class="main-title text-center">Instant DB MCP Server</h1>
         <div class="main-title">Currently supports MongoDB connection string on:</div>
-        <li class="sub-title">Atlas: e.g. mongodb+srv://UserName&#64;cluster0.example.mongodb.net/</li>
-        <li class="sub-title">AWS DocumentDB: e.g. mongodb://UserName&#64;endpoint:port?replicaSet=rs0&ssl_ca_certs=global-bundle.pem </li>
-        <li class="sub-title">Azure CosmosDB: e.g. mongodb://UserName&#64;host:port/[database]?ssl=true</li>
+        <li class="sub-title"><span class="main-title">Atlas:</span> e.g. mongodb+srv://UserName&#64;cluster0.example.mongodb.net/</li>
+        <li class="sub-title"><span class="main-title">AWS DocumentDB:</span> e.g. mongodb://UserName&#64;endpoint:port?replicaSet=rs0&ssl_ca_certs=global-bundle.pem </li>
+        <li class="sub-title"><span class="main-title">Azure CosmosDB:</span> e.g. mongodb://UserName&#64;host:port/[database]?ssl=true</li>
         <div class="sub-title">
             <div class="main-title mt-2">Get started:</div>
             <ol class="steps-list">
                 <li>Paste your MongoDB connection string (without password) in the first panel.</li>
                 <li>Copy the generated MCP Server URL from the second panel.</li>
-                <li>Follow the instructions to configure your AI assistant with the provided MCP Server URL.</li>
-                <li>Don't forget to set your password in the AI assistant configuration!</li>
+                <li>Follow the instructions below to configure your AI assistant with the provided JSON.</li>
+                <li>DON'T FORGET to set your password in the AI assistant configuration!</li>
             </ol>
         </div>
 
@@ -88,7 +88,7 @@
         <!-- Panel 3: Connect your AI assistant -->
         <div class="card panel-card">
             <div class="card-body">
-                <h5 class="panel-title">Connect your AI assistant</h5>
+                <h5 class="panel-title">Connect your AI assistant:</h5>
                 <div class="button-grid">
                     <button class="btn assistant-btn" 
                         [class.active]="isActive('cursor')" 
@@ -105,9 +105,10 @@
                     <button class="btn assistant-btn"
                         [class.active]="isActive('cline')" 
                         (click)="setActive('cline')"><img src="assets/cline.png" class="mx-1">Cline</button>
-                    <button class="btn assistant-btn"
+                    <!--button class="btn assistant-btn"
                         [class.active]="isActive('highlight')" 
                         (click)="setActive('highlight')"><img src="assets/highlight.png" class="mx-1">Highlight AI</button>
+                    -->
                     <button class="btn assistant-btn"
                         [class.active]="isActive('augment')" 
                         (click)="setActive('augment')"><img src="assets/augment.png" class="mx-1">Augment Code</button>
@@ -116,7 +117,22 @@
                         (click)="setActive('mysty')"><img src="assets/msty.jpg" class="mx-1">Msty AI</button>
                 </div>
                 <div class="d-flex justify-content-between align-items-center mb-2 mt-3">
-                    <p class="code-title mb-0">To add this MCP to VSCode, update your <a href="#">.vscode/mcp.json</a> :</p>
+                    <p *ngIf="activeAssistant === 'cursor'" class="code-title mb-0">To add this MCP to VSCode, update your <span>.vscode/mcp.json</span> :</p>
+                    <p *ngIf="activeAssistant === 'claude'" class="code-title mb-0">To add this MCP to Claude Desktop, update your <span>claude_desktop_config.json</span> :</p>
+                    <p *ngIf="activeAssistant === 'windsurf'" class="code-title mb-0">To add this MCP to Windsurf, update your <span>windsurf/mcp_config.json</span> :</p>
+                    <p *ngIf="activeAssistant === 'vscode'" class="code-title mb-0">To add this MCP to VSCode, update your <span>.vscode/mcp.json</span> :</p>
+                    <p *ngIf="activeAssistant === 'cline'" class="code-title mb-0">To add this MCP to Cline, update your <span>settings/cline_mcp_settings.json</span> :</p>
+                    <div *ngIf="activeAssistant === 'augment'" class="code-title mb-0">
+                        <li>Open Augment Code settings</li>
+                        <li>Navigate to the MCP section</li>
+                        <li>Add a new MCP server with the following details</li>
+                        <div>Name the MCP server:</div>
+                        <span>dbmcp-{{dbuser}}</span> 
+                        <div>Use this command:</div>
+                        <span>npx mcp-remote ${{mcpUrl}}</span>
+                        <div>Or use the following configuration:</div>
+                    </div>
+                    <p *ngIf="activeAssistant === 'mysty'" class="code-title mb-0">Copy the following JSON configuration:</p>
                     <div class="code-actions">
                         <button class="btn btn-sm btn-action" (click)="copyCode()"><i class="far fa-copy"></i></button>
                     </div>
