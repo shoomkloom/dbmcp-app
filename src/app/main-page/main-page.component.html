@@ -20,10 +20,22 @@
     <main class="py-1">
         <!-- Main Title -->
         <h1 class="main-title text-center">Instant DB MCP Server</h1>
-        <h5 class="main-title mb-5 text-center">Currently supports MongoDB on Atlas</h5>
+        <div class="main-title">Currently supports MongoDB connection string on:</div>
+        <li class="sub-title">Atlas: e.g. mongodb+srv://UserName&#64;cluster0.example.mongodb.net/</li>
+        <li class="sub-title">AWS DocumentDB: e.g. mongodb://UserName&#64;endpoint:port?replicaSet=rs0&ssl_ca_certs=global-bundle.pem </li>
+        <li class="sub-title">Azure CosmosDB: e.g. mongodb://UserName&#64;host:port/[database]?ssl=true</li>
+        <div class="sub-title">
+            <div class="main-title mt-2">Get started:</div>
+            <ol class="steps-list">
+                <li>Paste your MongoDB connection string (without password) in the first panel.</li>
+                <li>Copy the generated MCP Server URL from the second panel.</li>
+                <li>Follow the instructions to configure your AI assistant with the provided MCP Server URL.</li>
+                <li>Don't forget to set your password in the AI assistant configuration!</li>
+            </ol>
+        </div>
 
         <!-- Panel 1: MongoDB connection string -->
-        <div class="card panel-card">
+        <div class="card panel-card mt-3">
             <div class="card-body">
                 <h5 class="panel-title">Paste your MongoDB connection string here (no password):</h5>
                 <input type="text" id="mongodb-input" 
