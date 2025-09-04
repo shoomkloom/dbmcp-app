@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  dbmcpBaseUrl: 'https://dbmcp.me/mcp/'
+  dbmcpBaseUrl: 'https://www.dbmcp.me/mcp/'
 };
