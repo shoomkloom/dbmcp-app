@@ -1,27 +1,60 @@
-# DBMCP
+# dbmcp-app
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.0.
+The online app can be found here: https://dbmcp.me
 
-## Development server
+**dbmcp-app** is the frontend companion built with Angular (generated using Angular CLI v17.0.0) for use alongside **dbmcp-server** to provide a seamless, web-based MongoDB MCP interface.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Overview
 
-## Code scaffolding
+This Angular application, **dbmcp-app**, is designed to run entirely in the browser, providing a user interface to connect and interact with a MongoDB instance exposed via the **dbmcp-server**.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Features
 
-## Build
+- Built with **Angular 17** for a modern, reactive frontend.
+- Easy-to-run locally — just use `ng serve` and browse to `http://localhost:4200/`.
+- Supports hot-reload during development.
+- Ready for building (`ng build`) and testing (`ng test`, `ng e2e`) via standard Angular tooling.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Development Workflow
 
-## Running unit tests
+1. **Run a development server**  
+   ```bash
+   ng serve
+   ```  
+   Navigate to `http://localhost:4200/`. The app reloads instantly when source files change.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+2. **Generate Angular boilerplate**  
+   ```bash
+   ng generate component component-name
+   ```  
+   Or generate directives, services, pipes, and more.
 
-## Running end-to-end tests
+3. **Build for production**  
+   ```bash
+   ng build
+   ```  
+   The output files are placed in the `dist/` directory.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+4. **Testing**  
+   - Unit tests:  
+     ```bash
+     ng test
+     ```  
+   - End-to-end tests:  
+     ```bash
+     ng e2e
+     ```
 
-## Further help
+5. **CLI help**  
+   ```bash
+   ng help
+   ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Repositories
+
+- **App (frontend)**: [dbmcp-app](https://github.com/shoomkloom/dbmcp-app)  
+- **Server (backend)**: [dbmcp-server](https://github.com/shoomkloom/dbmcp-server)
+
+## License
+
+MIT License. See the [LICENSE](LICENSE) file for details.
