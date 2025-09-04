@@ -10,7 +10,7 @@
             <img src="assets/logo.png" alt="Company Logo" class="img-fluid logo-img">
         </div>
         <!-- GitHub Link -->
-        <a href="https://github.com" target="_blank" class="github-link">
+        <a href="https://github.com/shoomkloom/dbmcp-server" target="_blank" class="github-link">
         <i class="fab fa-github me-2"></i>
         <span>GitHub</span>
         </a>
@@ -20,10 +20,9 @@
     <main class="py-1">
         <!-- Main Title -->
         <h1 class="main-title text-center">Instant DB MCP Server</h1>
-        <div class="main-title">Currently supports MongoDB connection string on:</div>
-        <li class="sub-title"><span class="main-title">Atlas:</span> e.g. mongodb+srv://UserName&#64;cluster0.example.mongodb.net/</li>
-        <li class="sub-title"><span class="main-title">AWS DocumentDB:</span> e.g. mongodb://UserName&#64;endpoint:port?replicaSet=rs0&ssl_ca_certs=global-bundle.pem </li>
-        <li class="sub-title"><span class="main-title">Azure CosmosDB:</span> e.g. mongodb://UserName&#64;host:port/[database]?ssl=true</li>
+        <h5 class="main-title text-center">Provides 11 agent tools to help you query your DB</h5>
+        <div class="main-title text-center">Currently supports MongoDB connection strings on Atlas and Azure CosmosDB</div>
+        <div class="sub-title text-center">Although I tried to make it non-destructive, it is recommended to use a read-only user</div>
         <div class="sub-title">
             <div class="main-title mt-2">Get started:</div>
             <ol class="steps-list">
@@ -68,22 +67,6 @@
                 </div>
             </div>
         </div>
-        <!--
-        <div class="card panel-card">
-            <div class="card-body">
-                <h5 class="panel-title">Copy the MCP Server URL from here:</h5>
-                <div class="input-group">
-                    <input type="text" 
-                        id="mcp-input" 
-                        class="form-control"
-                        [(ngModel)]="mcpUrl" name="mcpUrl" #mcpUrl="ngModel">
-                    <button class="btn btn-copy" type="button" (click)="copyToClipboard('mcp-input')">
-                        <i class="far fa-copy"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        -->
 
         <!-- Panel 3: Connect your AI assistant -->
         <div class="card panel-card">
@@ -155,7 +138,7 @@
       <a href="https://windsurf.com/editor/" target="_blank" class="footer-link"><img src="assets/windsurf.png" class="mx-1">Windsurf</a>
       <a href="https://code.visualstudio.com/" target="_blank" class="footer-link"><img src="assets/vscode.png" class="mx-1">VSCode</a>
       <a href="https://cline.bot/" target="_blank" class="footer-link"><img src="assets/cline.png" class="mx-1">Cline</a>
-      <a href="https://highlight.io/" target="_blank" class="footer-link"><img src="assets/highlight.png" class="mx-1">Highlight AI</a>
+      <!--<a href="https://highlight.io/" target="_blank" class="footer-link"><img src="assets/highlight.png" class="mx-1">Highlight AI</a>-->
       <a href="https://www.augmentcode.com/" target="_blank" class="footer-link"><img src="assets/augment.png" class="mx-1">Augment Code</a>
       <a href="https://msty.ai/" target="_blank" class="footer-link"><img src="assets/msty.jpg" class="mx-1">Msty AI</a>
     </div>
