@@ -196,7 +196,7 @@ export class MainPageComponent implements OnInit {
 
     // URL encode full string
     return {
-      sanitized: encodeURIComponent(sanitized),
+      sanitized: encodeURIComponent(encodeURIComponent(sanitized)),
       dbuser: username
     };
   }
