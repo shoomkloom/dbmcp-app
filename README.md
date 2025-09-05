@@ -2,7 +2,7 @@
 
 The online app can be found here: https://dbmcp.me
 
-**dbmcp-app** is the frontend companion built with Angular (generated using Angular CLI v17.0.0) for use alongside **dbmcp-server** to provide a seamless, web-based MongoDB MCP interface.
+**dbmcp-app** is the frontend companion built with Angular (generated using Angular CLI v17.0.0) for use alongside [**dbmcp-server**](https://github.com/shoomkloom/dbmcp-server) to provide a seamless, web-based MongoDB MCP interface.
 
 ## Overview
 
