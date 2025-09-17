@@ -32,7 +32,7 @@
         <div class="sub-title">
             <div class="main-title mt-2">Get started:</div>
             <ol class="steps-list">
-                <li>Paste your MongoDB/PostgreSQL connection string (without password) in the first panel.</li>
+                <li>Paste your MongoDB/PostgreSQL connection string (without password) in the first panel<br>(be sure to <b>use IPv4</b> compatible connections).</li>
                 <li>Copy the generated MCP Server URL from the second panel.</li>
                 <li>Follow the instructions below to configure your AI assistant with the provided JSON.</li>
                 <li><b>DON'T FORGET:</b> Set your password in the AI assistant configuration!</li>
@@ -43,7 +43,7 @@
         <!-- Panel 1: MongoDB connection string -->
         <div class="card panel-card mt-3">
             <div class="card-body">
-                <h5 class="panel-title">Paste your connection string here (no password):</h5>
+                <h5 class="panel-title">Paste your (IPv4 compatible) connection string here:</h5>
                 <input type="text" id="url-input" 
                     class="form-control url-input" 
                     placeholder="e.g: mongodb+srv://username@cluster0.xxxxx.mongo"
