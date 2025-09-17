@@ -53,6 +53,20 @@ body {
   font-size: 1rem;
 }
 
+.url-input { 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+}
+
+.url-output {
+  background-color: #fff;
+  display: block;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
 // Header styling
 header {
   .logo-container {
@@ -152,7 +166,8 @@ header {
 .code-title {
   font-size: 0.875rem;
   color: #6e6e6e;
-  
+  word-wrap: break-all;
+
   span {
     color: $blue-primary;
     background-color: $mid-gray-bg;

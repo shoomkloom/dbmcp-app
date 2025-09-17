@@ -43,7 +43,8 @@ export class MainPageComponent implements OnInit {
     try{
       const result = this.sanitizeAndEncodeConnectionString();
       if(result.sanitized){
-        this.mcpUrl = `${environment.dbmcpBaseUrl}?srvString=${result.sanitized}&mongodbpassword=<YOUR PASSWORD>`;
+        const passwordPlaceholder = result.dbtype == 'mongodb' ? 'mongodbpassword=<YOUR PASSWORD>' : 'postgrepassword=<YOUR PASSWORD>';
+        this.mcpUrl = `${environment.dbmcpBaseUrl}?srvString=${result.sanitized}&${passwordPlaceholder}`;
         this.dbuser = result.dbuser || '';
         // Update the MCP JSON content
         this.setMcpJsonContent();
@@ -176,28 +177,45 @@ export class MainPageComponent implements OnInit {
     
   }
 
-  sanitizeAndEncodeConnectionString(): { sanitized: string; dbuser: string | null } {
+  sanitizeAndEncodeConnectionString(): { sanitized: string; dbuser: string | null; dbtype: string | null } {
     // Regex to match mongodb connection string with optional password
-    const regex = /^(mongodb(?:\+srv)?:\/\/)([^:]+)(?::([^@]*))?@(.*)$/;
+    const mongodbRegex = /^(mongodb(?:\+srv)?:\/\/)([^:]+)(?::([^@]*))?@(.*)$/;
+    const mongodbMatch = this.connectionString.match(mongodbRegex);
+    if(mongodbMatch){
+      const [, protocol, username, , rest] = mongodbMatch;
 
-    const match = this.connectionString.match(regex);
-    if (!match) {
-        // Not a valid MongoDB URI
-        return {
-          sanitized: '',
-          dbuser: ''
-        };
+      // Rebuild connection string without the password
+      const sanitized = `${protocol}${username}@${rest}`;
+
+      // URL encode full string
+      return {
+        sanitized: encodeURIComponent(encodeURIComponent(sanitized)),
+        dbuser: username,
+        dbtype: 'mongodb'
+      };
     }
 
-    const [, protocol, username, , rest] = match;
+    const postgreRegex = /^(postgresql?:\/\/)([^:]+)(?::([^@]*))?@(.*)$/;
+    const postgreMatch = this.connectionString.match(postgreRegex);
+    if(postgreMatch){
+      const [, protocol, username, , rest] = postgreMatch;
 
-    // Rebuild connection string without the password
-    const sanitized = `${protocol}${username}@${rest}`;
+      // Rebuild connection string without the password
+      const sanitized = `${protocol}${username}@${rest}`;
 
-    // URL encode full string
+      // URL encode full string
+      return {
+        sanitized: encodeURIComponent(encodeURIComponent(sanitized)),
+        dbuser: username,
+        dbtype: 'postgre'
+      };
+    }
+
+    // Not a valid connection string URI
     return {
-      sanitized: encodeURIComponent(encodeURIComponent(sanitized)),
-      dbuser: username
+      sanitized: '',
+      dbuser: '',
+      dbtype: ''
     };
   }
 

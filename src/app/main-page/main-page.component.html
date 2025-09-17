@@ -20,13 +20,19 @@
     <main class="py-1">
         <!-- Main Title -->
         <h1 class="main-title text-center">Instant DB MCP Server</h1>
-        <h5 class="main-title text-center">Provides 11 agent tools to help you query your DB</h5>
-        <div class="main-title text-center">Currently supports MongoDB connection strings on Atlas and Azure CosmosDB</div>
-        <div class="sub-title text-center">Although I tried to make it non-destructive, it is recommended to use a read-only user</div>
+        <h4 class="main-title text-center text-success">Now supports MongoDB and PostgreSQL!</h4>
+        <h5 class="main-title text-center">Provides agent tools to help you query your DBs</h5>
+        <div class="sub-title">
+            <div class="main-title mt-3">Supports:</div>
+                <li><b>MongoDB</b> connection strings: 'mongodb+srv://...' and 'mongodb://...' (e.g. Atlas and Azure CosmosDB).</li>
+                <li><b>PostgreSQL</b> connection strings: 'postgresql://...'.</li>
+        </div>
+        <div class="sub-title text-center mt-2">Although I tried to make it non-destructive, it is recommended to use a read-only user</div>
+
         <div class="sub-title">
             <div class="main-title mt-2">Get started:</div>
             <ol class="steps-list">
-                <li>Paste your MongoDB connection string (without password) in the first panel.</li>
+                <li>Paste your MongoDB/PostgreSQL connection string (without password) in the first panel.</li>
                 <li>Copy the generated MCP Server URL from the second panel.</li>
                 <li>Follow the instructions below to configure your AI assistant with the provided JSON.</li>
                 <li><b>DON'T FORGET:</b> Set your password in the AI assistant configuration!</li>
@@ -37,9 +43,9 @@
         <!-- Panel 1: MongoDB connection string -->
         <div class="card panel-card mt-3">
             <div class="card-body">
-                <h5 class="panel-title">Paste your MongoDB connection string here (no password):</h5>
-                <input type="text" id="mongodb-input" 
-                    class="form-control" 
+                <h5 class="panel-title">Paste your connection string here (no password):</h5>
+                <input type="text" id="url-input" 
+                    class="form-control url-input" 
                     placeholder="e.g: mongodb+srv://username@cluster0.xxxxx.mongo"
                     [(ngModel)]="connectionString" (ngModelChange)="connectionStringChanged($event)" name="connectionString">
             </div>
@@ -52,14 +58,7 @@
                 <div class="input-group">
                     <div 
                         id="mcp-div"
-                        class="form-control"
-                        style="
-                            background-color: #fff;
-                            display: block;
-                            white-space: pre-wrap;
-                            word-break: break-word;
-                            overflow-wrap: anywhere;
-                        ">
+                        class="form-control url-output">
                         {{ mcpUrl }}
                     </div>
                     <button class="btn btn-copy" type="button" (click)="copyToClipboard('mcp-div')">
@@ -100,7 +99,7 @@
                         [class.active]="isActive('mysty')" 
                         (click)="setActive('mysty')"><img src="assets/msty.jpg" class="mx-1">Msty AI</button>
                 </div>
-                <div class="d-flex justify-content-between align-items-center mb-2 mt-3">
+                <div class="d-flex justify-content-between align-items-center text-break mb-2 mt-3">
                     <p *ngIf="activeAssistant === 'cursor'" class="code-title mb-0">To add this MCP to VSCode, update your <span>.vscode/mcp.json</span> :</p>
                     <p *ngIf="activeAssistant === 'claude'" class="code-title mb-0">To add this MCP to Claude Desktop, update your <span>claude_desktop_config.json</span> :</p>
                     <p *ngIf="activeAssistant === 'windsurf'" class="code-title mb-0">To add this MCP to Windsurf, update your <span>windsurf/mcp_config.json</span> :</p>
