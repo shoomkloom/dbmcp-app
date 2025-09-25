@@ -20,19 +20,20 @@
     <main class="py-1">
         <!-- Main Title -->
         <h1 class="main-title text-center">Instant DB MCP Server</h1>
-        <h4 class="main-title text-center text-success">Now supports MongoDB and PostgreSQL!</h4>
+        <h4 class="main-title text-center text-success">Now supports MongoDB, PostgreSQL and SQL DBs!</h4>
         <h5 class="main-title text-center">Provides agent tools to help you query your DBs</h5>
         <div class="sub-title">
             <div class="main-title mt-3">Supports:</div>
-                <li><b>MongoDB</b> connection strings: 'mongodb+srv://...' and 'mongodb://...' (e.g. Atlas and Azure CosmosDB).</li>
-                <li><b>PostgreSQL</b> connection strings: 'postgresql://...'.</li>
+                <li><b>MongoDB</b> connection strings: 'mongodb+srv://...' and 'mongodb://...' (Tested with Atlas and Azure CosmosDB).</li>
+                <li><b>PostgreSQL</b> connection strings: 'postgresql://...' (Tested with supabase.com).</li>
+                <li><b>MySQL</b> connection strings: 'mysql://...'. (Tested with freesqldatabase.com)</li>
         </div>
         <div class="sub-title text-center mt-2">Although I tried to make it non-destructive, it is recommended to use a read-only user</div>
 
         <div class="sub-title">
             <div class="main-title mt-2">Get started:</div>
             <ol class="steps-list">
-                <li>Paste your MongoDB/PostgreSQL connection string (without password) in the first panel<br>(be sure to <b>use IPv4</b> compatible connections).</li>
+                <li>Paste your MongoDB/PostgreSQL/SQL connection string (without password) in the first panel<br>(be sure to <b>use IPv4</b> compatible connections).</li>
                 <li>Copy the generated MCP Server URL from the second panel.</li>
                 <li>Follow the instructions below to configure your AI assistant with the provided JSON.</li>
                 <li><b>DON'T FORGET:</b> Set your password in the AI assistant configuration!</li>
@@ -40,7 +41,7 @@
             </ol>
         </div>
 
-        <!-- Panel 1: MongoDB connection string -->
+        <!-- Panel 1: DB connection string -->
         <div class="card panel-card mt-3">
             <div class="card-body">
                 <h5 class="panel-title">Paste your (IPv4 compatible) connection string here:</h5>

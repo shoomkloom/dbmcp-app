@@ -43,7 +43,20 @@ export class MainPageComponent implements OnInit {
     try{
       const result = this.sanitizeAndEncodeConnectionString();
       if(result.sanitized){
-        const passwordPlaceholder = result.dbtype == 'mongodb' ? 'mongodbpassword=<YOUR PASSWORD>' : 'postgrepassword=<YOUR PASSWORD>';
+        let passwordPlaceholder = '';
+        switch(result.dbtype){
+          case 'mongodb':
+            passwordPlaceholder = 'mongodbpassword=<YOUR PASSWORD>';
+            break;
+          case 'postgre':
+            passwordPlaceholder = 'postgrepassword=<YOUR PASSWORD>';
+            break;
+          case 'mysql':
+            passwordPlaceholder = 'mysqlpassword=<YOUR PASSWORD>';
+            break;
+          default:
+            throw new Error('Unsupported database type'); 
+        }
         this.mcpUrl = `${environment.dbmcpBaseUrl}?srvString=${result.sanitized}&${passwordPlaceholder}`;
         this.dbuser = result.dbuser || '';
         // Update the MCP JSON content
@@ -208,6 +221,22 @@ export class MainPageComponent implements OnInit {
         sanitized: encodeURIComponent(encodeURIComponent(sanitized)),
         dbuser: username,
         dbtype: 'postgre'
+      };
+    }
+
+    const mysqlRegex = /^(mysql?:\/\/)([^:]+)(?::([^@]*))?@(.*)$/;
+    const mysqlMatch = this.connectionString.match(mysqlRegex);
+    if(mysqlMatch){
+      const [, protocol, username, , rest] = mysqlMatch;
+
+      // Rebuild connection string without the password
+      const sanitized = `${protocol}${username}@${rest}`;
+
+      // URL encode full string
+      return {
+        sanitized: encodeURIComponent(encodeURIComponent(sanitized)),
+        dbuser: username,
+        dbtype: 'mysql'
       };
     }
 
