@@ -1,9 +1,12 @@
 // Define custom variables for colors and fonts to match the design
 $light-gray-bg: #f9f9fa;
 $mid-gray-bg: #e9e9ea;
+$dark-bg: #2c2c2c;
 $dark-gray-text: #2c2c2c;
+$light-text: #ffffff;
 $panel-bg: #ffffff;
 $border-color: #ededed;
+$border-color-dark: #d0d0d0;
 $blue-primary: #2563eb;
 $blue-dark: #31398d;
 $shadow-color: rgba(0, 0, 0, 0.04);
@@ -126,6 +129,15 @@ header {
   display: flex;               /* replaces d-flex if not using Bootstrap here */
   flex-wrap: wrap;             /* allow wrapping on narrow screens */
   align-items: center;
+  padding: 10px;
+  background-color: $dark-bg;
+  border-radius: 0.8rem;
+  border: 1px solid $border-color-dark;
+}
+
+.intro-title {
+  color: $light-text;
+  font-weight: 350;
 }
 
 .flex-text { 
