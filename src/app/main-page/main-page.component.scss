@@ -68,11 +68,28 @@ body {
 }
 
 // Header styling
+.header-container {
+  margin-bottom: 1rem;
+}
+
 header {
-  .logo-container {
-    width: 9rem;
-    height: 9rem;
+  .logo-img {
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%);
+    height:80px;
+    margin-right: 1rem;
+  }
+
+  .title-container {
     position: relative;
+    width: max-content;
+  }
+
+  .titles {
+    display: inline-block;
+    text-align: center;
   }
 
   .github-link {
@@ -88,6 +105,20 @@ header {
       color: $blue-primary;
     }
   }
+
+  @media (max-width: 767.98px) {
+    .logo-img {
+      position: static;
+      transform: none;
+      display: block;
+      margin: 0 auto 1rem auto;
+      height:150px;
+    }
+
+    .titles {
+      text-align: center;
+    }
+  }
 }
 
 /* parent of the three intro blocks */
@@ -101,6 +132,7 @@ header {
   flex: 0 0 40%; 
   max-width: 40%; 
   padding: 10px;
+  margin-top: 20px;
 }
 .flex-img  { 
   flex: 0 0 30%; 
@@ -110,6 +142,7 @@ header {
   .flex-text { 
     flex: 0 0 100%; 
     max-width: 100%; 
+    margin-top: 0px;
   }
   .flex-img { 
     flex: 0 0 50%; 

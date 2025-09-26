@@ -4,21 +4,22 @@
     <div id="message-container" class="message-container"></div>
 
     <!-- Top section with logo, titles, and GitHub link -->
-    <header class="py-1 px-4 w-100 position-relative">
+    <header class="header-container py-1 px-4 w-100 position-relative">
         <!-- Centered titles block (the page’s true center) -->
-        <div class="position-relative mx-auto text-center" style="width: max-content;">
+        <div class="title-container mx-auto text-center">
             <!-- Logo sits just to the left of the centered block; does NOT affect centering -->
             <img
                 src="assets/logo.png"
                 alt="DBMCP Logo"
-                class="position-absolute top-50 end-100 translate-middle-y me-3"
-                style="height:80px;"
+                class="logo-img"
             />
 
             <!-- Titles -->
-            <h1 class="main-title mb-1">Instant DB MCP Server</h1>
-            <h4 class="main-title text-success mb-1">Supports MongoDB, PostgreSQL and MySQL</h4>
-            <h5 class="main-title">Provides agent tools to help you query your DBs</h5>
+            <div class="titles">
+                <h1 class="main-title mb-1">Instant DB MCP Server</h1>
+                <h4 class="main-title text-success mb-1">Supports MongoDB, PostgreSQL and MySQL</h4>
+                <h5 class="main-title">Provides agent tools to help you query your DBs</h5>
+            </div>
         </div>
 
         <!-- GitHub Link pinned to far right; does not affect centering -->
@@ -34,8 +35,8 @@
     <!-- Main content sections -->
     <main class="py-1">
         <!-- Intro section -->
-        <div class="intro-row mb-2 mt-3">
-            <div class="sub-title text-center flex-text mt-3">
+        <div class="intro-row mb-2">
+            <div class="sub-title text-center flex-text">
                 <p>Using an MCP server with your AI assistant is almost like magic.<br>Using it with your DB is even better!</p>
                 <p>You can get quick insights into your data without remembering complex SQL or MongoDB syntax.</p>
                 <p>Even better: because you are using an MCP server with tools, you get much more reliable answers: the LLM is generating the query but not the actual code to execute it.</p>
