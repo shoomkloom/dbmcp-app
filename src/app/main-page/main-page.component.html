@@ -3,36 +3,50 @@
     <!-- Message container for 'Copied!' feedback -->
     <div id="message-container" class="message-container"></div>
 
-    <!-- Top section with logo and GitHub link -->
-    <header class="d-flex justify-content-between align-items-center py-4 px-4">
-        <!-- Logo -->
-        <div class="logo-container mx-auto position-relative">
-            <img src="assets/logo.png" alt="Company Logo" class="img-fluid logo-img">
+    <!-- Top section with logo, titles, and GitHub link -->
+    <header class="py-1 px-4 w-100 position-relative">
+        <!-- Centered titles block (the page’s true center) -->
+        <div class="position-relative mx-auto text-center" style="width: max-content;">
+            <!-- Logo sits just to the left of the centered block; does NOT affect centering -->
+            <img
+                src="assets/logo.png"
+                alt="Company Logo"
+                class="position-absolute top-50 end-100 translate-middle-y me-3"
+                style="height:80px;"
+            />
+
+            <!-- Titles -->
+            <h1 class="main-title mb-1">Instant DB MCP Server</h1>
+            <h4 class="main-title text-success mb-1">Supports MongoDB, PostgreSQL and MySQL</h4>
+            <h5 class="main-title">Provides agent tools to help you query your DBs</h5>
         </div>
-        <!-- GitHub Link -->
-        <a href="https://github.com/shoomkloom/dbmcp-server" target="_blank" class="github-link">
-        <i class="fab fa-github me-2"></i>
-        <span>GitHub</span>
+
+        <!-- GitHub Link pinned to far right; does not affect centering -->
+        <a
+            href="https://github.com/shoomkloom/dbmcp-server"
+            target="_blank"
+            class="github-link position-absolute top-0 end-0 me-4 mt-3">
+            <i class="fab fa-github me-2"></i>
+            <span>GitHub</span>
         </a>
     </header>
 
     <!-- Main content sections -->
     <main class="py-1">
         <!-- Main Title -->
-        <h1 class="main-title text-center">Instant DB MCP Server</h1>
-        <h4 class="main-title text-center text-success">Now supports MongoDB, PostgreSQL and SQL DBs!</h4>
-        <h5 class="main-title text-center">Provides agent tools to help you query your DBs</h5>
         <div class="sub-title">
             <div class="main-title mt-3">Supports:</div>
+            <ul>
                 <li><b>MongoDB</b> connection strings: 'mongodb+srv://...' and 'mongodb://...' (Tested with Atlas and Azure CosmosDB).</li>
                 <li><b>PostgreSQL</b> connection strings: 'postgresql://...' (Tested with supabase.com).</li>
                 <li><b>MySQL</b> connection strings: 'mysql://...'. (Tested with freesqldatabase.com)</li>
+            </ul>
         </div>
         <div class="sub-title text-center mt-2">Although I tried to make it non-destructive, it is recommended to use a read-only user</div>
 
         <div class="sub-title">
             <div class="main-title mt-2">Get started:</div>
-            <ol class="steps-list">
+            <ol>
                 <li>Paste your MongoDB/PostgreSQL/SQL connection string (without password) in the first panel<br>(be sure to <b>use IPv4</b> compatible connections).</li>
                 <li>Copy the generated MCP Server URL from the second panel.</li>
                 <li>Follow the instructions below to configure your AI assistant with the provided JSON.</li>
