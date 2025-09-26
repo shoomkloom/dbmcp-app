@@ -18,6 +18,7 @@ export class MainPageComponent implements OnInit {
   mcpJsonContent = '';
   showHighlightInstructions = false;
   activeAssistant = 'cursor';
+  overlaySrc: string | null = null;
 
   constructor(private renderer: Renderer2) { }
 
@@ -309,5 +310,15 @@ export class MainPageComponent implements OnInit {
   // Method to copy the code block text
   copyCode(): void {
     this.copyToClipboard('code-block-content');
+  }
+
+  openOverlay(src: string) {
+    this.overlaySrc = src;
+    document.body.style.overflow = 'hidden';        // prevent background scroll
+  }
+
+  closeOverlay() {
+    this.overlaySrc = null;
+    document.body.style.overflow = '';              // restore scroll
   }
 }

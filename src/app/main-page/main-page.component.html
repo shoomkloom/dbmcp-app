@@ -10,7 +10,7 @@
             <!-- Logo sits just to the left of the centered block; does NOT affect centering -->
             <img
                 src="assets/logo.png"
-                alt="Company Logo"
+                alt="DBMCP Logo"
                 class="position-absolute top-50 end-100 translate-middle-y me-3"
                 style="height:80px;"
             />
@@ -33,6 +33,39 @@
 
     <!-- Main content sections -->
     <main class="py-1">
+        <!-- Intro section -->
+        <div class="intro-row mb-2 mt-3">
+            <div class="sub-title text-center flex-text mt-3">
+                <p>Using an MCP server with your AI assistant is almost like magic.<br>Using it with your DB is even better!</p>
+                <p>You can get quick insights into your data without remembering complex SQL or MongoDB syntax.</p>
+                <p>Even better: because you are using an MCP server with tools, you get much more reliable answers: the LLM is generating the query but not the actual code to execute it.</p>
+            </div>
+            <div class="sub-title text-center flex-img">
+                <div class="my-1">MySQL example:</div>
+                <img 
+                    class="intro-img intro-img--fade" 
+                    src="assets/chat01.png" 
+                    alt="AI Assistant Chat example"
+                    (click)="openOverlay('assets/chat01.png')">
+            </div>
+            <div class="sub-title text-center flex-img">
+                <div class="my-1">PostgreSQL example:</div>
+                <img 
+                    class="intro-img intro-img--fade" 
+                    src="assets/chat02.png" 
+                    alt="AI Assistant Chat example"
+                    (click)="openOverlay('assets/chat02.png')">
+            </div>
+        </div>
+
+        <!-- full-screen overlay -->
+        <div class="image-overlay" *ngIf="overlaySrc" (click)="closeOverlay()">
+            <img class="overlay-image" [src]="overlaySrc" alt="Zoomed image" (click)="$event.stopPropagation()">
+            <button class="overlay-close" type="button" aria-label="Close" (click)="closeOverlay()">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+        </div>
+
         <!-- Main Title -->
         <div class="sub-title">
             <div class="main-title mt-3">Supports:</div>

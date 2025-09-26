@@ -90,6 +90,92 @@ header {
   }
 }
 
+/* parent of the three intro blocks */
+.intro-row {
+  display: flex;               /* replaces d-flex if not using Bootstrap here */
+  flex-wrap: wrap;             /* allow wrapping on narrow screens */
+  align-items: center;
+}
+
+.flex-text { 
+  flex: 0 0 40%; 
+  max-width: 40%; 
+  padding: 10px;
+}
+.flex-img  { 
+  flex: 0 0 30%; 
+  max-width: 30%; 
+}
+@media (max-width: 767.98px) {
+  .flex-text { 
+    flex: 0 0 100%; 
+    max-width: 100%; 
+  }
+  .flex-img { 
+    flex: 0 0 50%; 
+    max-width: 50%; 
+  }
+}
+.intro-img { 
+  width: 100%;
+  height: 300px;              /* set the visible window height of the crop */
+  object-fit: cover;          /* fill width, crop overflow */
+  object-position: top;       /* keep the top edge in view */
+  padding: 5px;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  overflow: hidden;          /* ensure the image respects the radius if wrapped */
+  cursor: pointer;
+}
+
+/* bottom fade for thumbnail previews */
+.intro-img--fade {
+  /* modern mask: fade from fully visible (top) to 15% at bottom */
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 95%, rgba(0,0,0,0.3) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 95%, rgba(0,0,0,0.3) 100%);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+/* full-screen overlay */
+.image-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);        /* opaque dim background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+}
+
+/* scaled image: fit within viewport while keeping aspect */
+.overlay-image {
+  max-width: 100%;
+  max-height: 100%;
+  box-shadow: 0 10px 30px rgba(0,0,0,.5);
+  border-radius: .5rem;
+}
+
+/* close button */
+.overlay-close {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  width: 30px;
+  height: 30px;
+  padding: 0px;
+  line-height: 30px;
+  font-size: 20px;
+  background: rgba(0,0,0,.6);
+  color: #fff;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 // Input field styling
 .form-control, .input-group-text, .btn-copy {
   border-radius: 0.5rem !important;
