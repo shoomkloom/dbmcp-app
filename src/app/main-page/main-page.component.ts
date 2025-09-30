@@ -49,7 +49,7 @@ export class MainPageComponent implements OnInit {
           case 'mongodb':
             passwordPlaceholder = 'mongodbpassword=<YOUR PASSWORD>';
             break;
-          case 'postgre':
+          case 'postgresql':
             passwordPlaceholder = 'postgrepassword=<YOUR PASSWORD>';
             break;
           case 'mysql':
@@ -209,10 +209,10 @@ export class MainPageComponent implements OnInit {
       };
     }
 
-    const postgreRegex = /^(postgresql?:\/\/)([^:]+)(?::([^@]*))?@(.*)$/;
-    const postgreMatch = this.connectionString.match(postgreRegex);
-    if(postgreMatch){
-      const [, protocol, username, , rest] = postgreMatch;
+    const dbRegex = /^((postgresql|mysql)?:\/\/)([^:]+)(?::([^@]*))?@(.*)$/;
+    const dbMatch = this.connectionString.match(dbRegex);
+    if(dbMatch){
+      const [, protocol, dbtype, username, , rest] = dbMatch;
 
       // Rebuild connection string without the password
       const sanitized = `${protocol}${username}@${rest}`;
@@ -221,23 +221,7 @@ export class MainPageComponent implements OnInit {
       return {
         sanitized: encodeURIComponent(encodeURIComponent(sanitized)),
         dbuser: username,
-        dbtype: 'postgre'
-      };
-    }
-
-    const mysqlRegex = /^(mysql?:\/\/)([^:]+)(?::([^@]*))?@(.*)$/;
-    const mysqlMatch = this.connectionString.match(mysqlRegex);
-    if(mysqlMatch){
-      const [, protocol, username, , rest] = mysqlMatch;
-
-      // Rebuild connection string without the password
-      const sanitized = `${protocol}${username}@${rest}`;
-
-      // URL encode full string
-      return {
-        sanitized: encodeURIComponent(encodeURIComponent(sanitized)),
-        dbuser: username,
-        dbtype: 'mysql'
+        dbtype: dbtype
       };
     }
 
