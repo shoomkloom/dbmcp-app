@@ -18,6 +18,7 @@ export class MainPageComponent implements OnInit {
   mcpJsonContent = '';
   showHighlightInstructions = false;
   activeAssistant = 'cursor';
+  overlaySrc: string | null = null;
 
   constructor(private renderer: Renderer2) { }
 
@@ -43,7 +44,20 @@ export class MainPageComponent implements OnInit {
     try{
       const result = this.sanitizeAndEncodeConnectionString();
       if(result.sanitized){
-        const passwordPlaceholder = result.dbtype == 'mongodb' ? 'mongodbpassword=<YOUR PASSWORD>' : 'postgrepassword=<YOUR PASSWORD>';
+        let passwordPlaceholder = '';
+        switch(result.dbtype){
+          case 'mongodb':
+            passwordPlaceholder = 'mongodbpassword=<YOUR PASSWORD>';
+            break;
+          case 'postgresql':
+            passwordPlaceholder = 'postgrepassword=<YOUR PASSWORD>';
+            break;
+          case 'mysql':
+            passwordPlaceholder = 'mysqlpassword=<YOUR PASSWORD>';
+            break;
+          default:
+            throw new Error('Unsupported database type'); 
+        }
         this.mcpUrl = `${environment.dbmcpBaseUrl}?srvString=${result.sanitized}&${passwordPlaceholder}`;
         this.dbuser = result.dbuser || '';
         // Update the MCP JSON content
@@ -195,10 +209,10 @@ export class MainPageComponent implements OnInit {
       };
     }
 
-    const postgreRegex = /^(postgresql?:\/\/)([^:]+)(?::([^@]*))?@(.*)$/;
-    const postgreMatch = this.connectionString.match(postgreRegex);
-    if(postgreMatch){
-      const [, protocol, username, , rest] = postgreMatch;
+    const dbRegex = /^((postgresql|mysql)?:\/\/)([^:]+)(?::([^@]*))?@(.*)$/;
+    const dbMatch = this.connectionString.match(dbRegex);
+    if(dbMatch){
+      const [, protocol, dbtype, username, , rest] = dbMatch;
 
       // Rebuild connection string without the password
       const sanitized = `${protocol}${username}@${rest}`;
@@ -207,7 +221,7 @@ export class MainPageComponent implements OnInit {
       return {
         sanitized: encodeURIComponent(encodeURIComponent(sanitized)),
         dbuser: username,
-        dbtype: 'postgre'
+        dbtype: dbtype
       };
     }
 
@@ -280,5 +294,15 @@ export class MainPageComponent implements OnInit {
   // Method to copy the code block text
   copyCode(): void {
     this.copyToClipboard('code-block-content');
+  }
+
+  openOverlay(src: string) {
+    this.overlaySrc = src;
+    document.body.style.overflow = 'hidden';        // prevent background scroll
+  }
+
+  closeOverlay() {
+    this.overlaySrc = null;
+    document.body.style.overflow = '';              // restore scroll
   }
 }
