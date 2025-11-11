@@ -76,7 +76,62 @@
                 <li><b>MySQL</b> connection strings: 'mysql://...'. (Tested with freesqldatabase.com)</li>
             </ul>
         </div>
-        <div class="sub-title text-center mt-2">It is recommended to use a read-only user.</div>
+        <div class="sub-title text-center mt-2">
+            <b>IMPORTANT:</b> Create and use a read-only user! 
+            <a href="javascript:void(0)" class="text-primary" (click)="toggleHowTo()">Show me how.</a>
+        </div>
+        
+        <div class="card panel-card my-2" *ngIf="showHowTo">
+            <div class="card-body">
+                <h5>How to create a read-only user:</h5>
+                <div class="mb-3">
+                    <strong>MongoDB:</strong>
+                    <div class="bg-light p-2 mt-1 rounded">
+                        <ol>
+                            <li>Go to your cluster in Atlas.</li>
+                            <li>Navigate to Database Access → Add New Database User.</li>
+                            <li>Create a new user:
+                                <ul>
+                                    <li>Authentication method: Password</li>
+                                    <li>Database user privileges: Read Only</li>
+                                </ul>
+                            </li>
+                            <li>Save the user.</li>
+                            <li>Copy the connection string from Database → Connect → Drivers</li>
+                        </ol>
+                        This user will only have find and listCollections privileges — no writes, inserts, or deletes.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <strong>PostgreSQL:</strong>
+                    <div class="bg-light p-2 mt-1 rounded">
+                        Call the following SQL in your PostgreSQL database:
+                        <ol>
+                            <li>CREATE ROLE 'readonly_user' WITH LOGIN PASSWORD 'strong_password_here';</li>
+                            <li>GRANT CONNECT ON DATABASE your_database TO 'readonly_user';</li>
+                            <li>GRANT USAGE ON SCHEMA public TO 'readonly_user';</li>
+                            <li>GRANT SELECT ON ALL TABLES IN SCHEMA public TO 'readonly_user';</li>
+                            <li>ALTER DEFAULT PRIVILEGES IN SCHEMA public</li>
+                            <li>GRANT SELECT ON TABLES TO 'readonly_user';</li>
+                        </ol>
+                        If your data isn't in public, replace it with your schema name.<br>
+                        This connection will not allow inserts, updates, deletes, or schema changes.
+                    </div>
+                </div>
+                <div>
+                    <strong>MySQL:</strong>
+                    <div class="bg-light p-2 mt-1 rounded">
+                        Create a read-only user with restricted connections to DBMCP's IP:
+                        <ol>
+                            <li>CREATE USER 'readonly_user'&#64;'208.77.244.15' IDENTIFIED BY 'strong_password_here';</li>
+                            <li>GRANT SELECT ON your_database.* TO 'readonly_user'&#64;'%';</li>
+                            <li>FLUSH PRIVILEGES;</li>
+                        </ol>   
+                        This gives read access (SELECT) to all tables in your_database and no permission to insert, update, delete, or alter anything
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="sub-title">
             <div class="main-title mt-2">Get started:</div>

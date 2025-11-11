@@ -18,6 +18,11 @@ export class MainPageComponent implements OnInit {
   mcpJsonContent = '';
   showHighlightInstructions = false;
   activeAssistant = 'cursor';
+  showHowTo = false;
+
+  toggleHowTo() {
+    this.showHowTo = !this.showHowTo;
+  }
   overlaySrc: string | null = null;
 
   constructor(private renderer: Renderer2) { }
